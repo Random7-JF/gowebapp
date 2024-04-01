@@ -1,22 +1,19 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 
+	"github.com/Random7-JF/gowebapp/pkg/handlers"
 	"github.com/Random7-JF/gowebapp/pkg/middleware"
 )
 
 func main() {
 	router := http.NewServeMux()
-
-	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Index"))
-	})
-	router.HandleFunc("/hello/{name}", func(w http.ResponseWriter, r *http.Request) {
-		id := r.PathValue("name")
-		w.Write([]byte(fmt.Sprintf("Hello, %s", id)))
-	})
+	state := handlers.State{
+		Info: "Test",
+	}
+	router.HandleFunc("/", state.Index)
+	router.HandleFunc("/hello/{name}", state.Name)
 
 	stack := middleware.CreateStack(
 		middleware.Logging,
