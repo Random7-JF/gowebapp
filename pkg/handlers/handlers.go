@@ -3,6 +3,8 @@ package handlers
 import (
 	"fmt"
 	"net/http"
+
+	"github.com/Random7-JF/gowebapp/pkg/renderer"
 )
 
 type State struct {
@@ -10,7 +12,9 @@ type State struct {
 }
 
 func (s *State) Index(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Test"))
+	info := renderer.TemplateInfo{}
+	info.Render(w)
+
 }
 
 func (s *State) Name(w http.ResponseWriter, r *http.Request) {
